@@ -33,7 +33,11 @@ def ricevi_comandi(sock_listen):
             if operazione == 'per':
                 risultato = int(primo)*int(secondo)
             if operazione == 'diviso':
-                risultato = int(primo)/int(secondo)
+                if int(secondo)==0:
+                    print("Non è ossibile dividere per 0")
+                    break
+                else:
+                    risultato = int(primo)/int(secondo)
 
             dati ="il risultato dell'operazione: " +operazione+" tra "+primo+" e "+secondo+" è: "+str(risultato)
 
