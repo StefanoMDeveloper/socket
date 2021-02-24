@@ -17,13 +17,12 @@ def ricevi_comandi(sock_service, addr_client):
             print("Fine dati dal client. Reset")
             break
 
-        #decodifica i byte rievuti in una stringa unicode
-        dati = dati.decode()
+        dati = dati.decode()#decodifica i byte rievuti in una stringa unicode
         print("Ricevuto: '%s'" % dati)
         if dati=='ko':
             print("Chiudo la connessione con " + str(addr_client))
             break
-        operazione, primo, secondo = dati.split(';')
+        operazione, primo, secondo = dati.split(';')#serve per distinguere i dati inseriti nella stessa stringa
         if operazione == "piu" :
             risultato = int(primo) + int(secondo)
         if operazione == "meno" :
@@ -40,7 +39,7 @@ def ricevi_comandi(sock_service, addr_client):
         dati = "il risultato dell'operazione: " + operazione + " tra "+ primo+ " e "+ secondo+ " è: "+ str(risultato)
         dati = dati.encode()#codifica la stringa in byte
         sock_service.send(dati)#invia la risposta al client
-    sock_service.close()       
+    sock_service.close()#interrompe la connessione con il server
 
 def avvia_server(indirizzo, porta ):
     try:
