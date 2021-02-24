@@ -43,15 +43,20 @@ def invia_comandi(sock_service):
         dati = dati.decode()
 
         print("Ricevuto dal server:")
-        print(dati)
+        print(dati + '\n')
     sock_service.close()
 
 #La funzione crea una socket (s) per la connesione con il server e la passa alla funzione invia_comandi
 def connessione_server(address, port):
-    sock_service = socket.socket()
-    sock_service.connect((address, port))
-    print("Connesso a " + str((address, port)))
-    invia_comandi(sock_service)
+    try:
+        s = socket.socket() #creazione socket client
+        s.connect((address, port)) #connessione al server
+        #print("Connesso a " + str((address, port)))
+        print(f"Connessione al Server: {address}:{port}")#diverso modo per scrivere una stringa con variabili
+    except s.error as errore:
+        print(f"Qualcosa è andato storto, sto uscendo... \n{errore}")
+        sys.exit()
+    invia_comandi(s)
     
 
 #Questa funzione consente al nostro codice di capire se stia venendo eseguito come script a se stante,
